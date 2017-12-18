@@ -29,8 +29,8 @@
 	else
 		res.send(objKO);
   });
-  app.get("/servizi/hello/:nome", function(req, res) { 
-	console.log('GET   ' + req.url);
+  app.post("/servizi/hello/:nome", function(req, res) { 
+	console.log('POST   ' + req.url);
     console.log('>>>> payload : ' + JSON.stringify(req.params));
 	var obj = {status:"OK", message:"Benvenuto, " + req.params.nome};
 

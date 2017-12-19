@@ -12,7 +12,7 @@
 	console.log('GET   ' + req.url);
     console.log('>>>> payload : ' + JSON.stringify(req.params));
 	var objOK = {status:"OK", message:"Richiesta Elaborata Correttamente!!"};
-	var objKO = {status:"OK", message:"Richiesta terminata in errore!!", detail: "java.lang.NullPointerException : Line 56"};
+	var objKO = {status:"KO", message:"Richiesta terminata in errore!!", detail: "java.lang.NullPointerException : Line 56"};
 	if(Math.ceil(2*Math.random())==1)
 		res.send(objOK);
 	else
@@ -23,7 +23,7 @@
 	console.log('POST  ' + req.url);
     console.log('>>>> payload : ' + JSON.stringify(req.params));
 	var objOK = {status:"OK", message:"Richiesta Elaborata Correttamente!!"};
-	var objKO = {status:"OK", message:"Richiesta terminata in errore!!", detail: "java.lang.NullPointerException : Line 56"};
+	var objKO = {status:"KO", message:"Richiesta terminata in errore!!", detail: "java.lang.NullPointerException : Line 56"};
 	if(Math.ceil(2*Math.random())==1)
 		res.send(objOK);
 	else
@@ -35,6 +35,20 @@
 	var obj = {status:"OK", message:"Benvenuto, " + req.params.nome};
 
 	res.send(obj);
+  });
+  
+  app.post("/servizi/validateEmail/:email", function(req, res) { 
+	console.log('POST   ' + req.url);
+	var email = req.params.email;
+	
+	var objOK = {status:"OK", message:"Email valida"};
+	var objKO = {status:"KO", message:"Email non valida", detail: "Match non valido con l'espressione regolare [A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"};
+	var regex = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g;
+
+	if(regex.test(email))
+		res.send(objOK);
+	else
+		res.send(objKO);
   });
   
   
